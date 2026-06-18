@@ -92,6 +92,15 @@ router.post("/sessions", async (req, res) => {
   res.status(201).json(formatSession(updated));
 });
 
+router.delete("/sessions/:id", async (req, res) => {
+  const id = Number(req.params.id);
+  const [session] = await db.select().from(sessionsTable).where(eq(sessionsTable.id, id));
+  if (!session) return res.status(404).json({ error: "Session not found" });
+  await db.delete(messagesTable).where(eq(messagesTable.sessionId, id));
+  await db.delete(sessionsTable).where(eq(sessionsTable.id, id));
+  res.status(204).end();
+});
+
 router.get("/sessions/:id", async (req, res) => {
   const { id } = GetSessionParams.parse({ id: Number(req.params.id) });
   const [session] = await db.select().from(sessionsTable).where(eq(sessionsTable.id, id));

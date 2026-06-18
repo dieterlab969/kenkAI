@@ -141,6 +141,14 @@ export const GetSessionResponse = zod.object({
 
 
 /**
+ * @summary Delete a session and its messages
+ */
+export const DeleteSessionParams = zod.object({
+  "id": zod.coerce.number()
+})
+
+
+/**
  * @summary Send a message in a session
  */
 export const SendMessageParams = zod.object({

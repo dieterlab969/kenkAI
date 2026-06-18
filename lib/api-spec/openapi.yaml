@@ -163,6 +163,21 @@ paths:
                 $ref: "#/components/schemas/SessionWithMessages"
         "404":
           description: Not found
+    delete:
+      operationId: deleteSession
+      tags: [sessions]
+      summary: Delete a session and its messages
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+        "404":
+          description: Not found
 
   /sessions/{id}/messages:
     post:
