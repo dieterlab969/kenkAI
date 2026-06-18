@@ -41,7 +41,7 @@ function Router() {
         <AppLayout><Sessions /></AppLayout>
       </Route>
       <Route path="/sessions/:id">
-        <AppLayout><SessionDetail /></AppLayout>
+        <AppLayout><Sessions /></AppLayout>
       </Route>
       
       <Route path="/reports">

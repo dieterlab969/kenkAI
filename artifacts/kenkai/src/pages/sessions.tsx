@@ -121,8 +121,8 @@ export default function Sessions() {
         {/* Header */}
         <div className="p-4 space-y-3 border-b border-white/6">
           <div className="flex items-center justify-between">
-            <h1 className="text-sm font-semibold text-white/80 tracking-wide">Phiên tư vấn</h1>
-            <span className="text-xs text-white/30">{sessions.length} phiên</span>
+            <span className="text-xs font-medium text-white/35 uppercase tracking-wider">Lịch sử</span>
+            <span className="text-xs text-white/25">{sessions.length} phiên</span>
           </div>
 
           {/* New session button */}
