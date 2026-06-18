@@ -15,7 +15,6 @@ export function Sidebar() {
 
   const links = [
     { href: "/dashboard", label: "Tổng quan", icon: LayoutDashboard },
-    { href: "/ai", label: "KENKAI AI", icon: Bot, highlight: true },
     { href: "/assessments", label: "Đánh giá", icon: ClipboardList },
     { href: "/sessions", label: "Phiên tư vấn", icon: MessageSquare },
     { href: "/reports", label: "Báo cáo", icon: FileText },
