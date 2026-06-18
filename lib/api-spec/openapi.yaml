@@ -1,0 +1,543 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: KENKAI AI Strategic Thinking Partner API
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: assessments
+    description: Assessment operations
+  - name: sessions
+    description: Conversation session operations
+  - name: reports
+    description: Report operations
+  - name: dashboard
+    description: Dashboard and overview operations
+  - name: gemini
+    description: Gemini AI chat operations
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      description: Returns server health status
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+
+  /assessments:
+    get:
+      operationId: listAssessments
+      tags: [assessments]
+      summary: List all assessments
+      responses:
+        "200":
+          description: List of assessments
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Assessment"
+    post:
+      operationId: createAssessment
+      tags: [assessments]
+      summary: Create a new assessment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AssessmentInput"
+      responses:
+        "201":
+          description: Created assessment
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Assessment"
+
+  /assessments/{id}:
+    get:
+      operationId: getAssessment
+      tags: [assessments]
+      summary: Get assessment by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Assessment
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Assessment"
+        "404":
+          description: Not found
+    patch:
+      operationId: updateAssessment
+      tags: [assessments]
+      summary: Update assessment
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AssessmentUpdate"
+      responses:
+        "200":
+          description: Updated assessment
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Assessment"
+
+  /sessions:
+    get:
+      operationId: listSessions
+      tags: [sessions]
+      summary: List all sessions
+      responses:
+        "200":
+          description: List of sessions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Session"
+    post:
+      operationId: createSession
+      tags: [sessions]
+      summary: Create a new session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SessionInput"
+      responses:
+        "201":
+          description: Created session
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Session"
+
+  /sessions/{id}:
+    get:
+      operationId: getSession
+      tags: [sessions]
+      summary: Get session by ID with messages
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Session with messages
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SessionWithMessages"
+        "404":
+          description: Not found
+    delete:
+      operationId: deleteSession
+      tags: [sessions]
+      summary: Delete a session and its messages
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+        "404":
+          description: Not found
+
+  /sessions/{id}/messages:
+    post:
+      operationId: sendMessage
+      tags: [sessions]
+      summary: Send a message in a session
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MessageInput"
+      responses:
+        "201":
+          description: AI response message
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Message"
+
+  /reports:
+    get:
+      operationId: listReports
+      tags: [reports]
+      summary: List all reports
+      responses:
+        "200":
+          description: List of reports
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Report"
+
+  /reports/{id}:
+    get:
+      operationId: getReport
+      tags: [reports]
+      summary: Get report by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Report
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Report"
+        "404":
+          description: Not found
+
+  /reports/generate:
+    post:
+      operationId: generateReport
+      tags: [reports]
+      summary: Generate a report from an assessment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ReportGenerateInput"
+      responses:
+        "201":
+          description: Generated report
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Report"
+
+  /dashboard/overview:
+    get:
+      operationId: getDashboardOverview
+      tags: [dashboard]
+      summary: Get dashboard overview stats
+      responses:
+        "200":
+          description: Dashboard overview
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DashboardOverview"
+
+  /dashboard/activity:
+    get:
+      operationId: getRecentActivity
+      tags: [dashboard]
+      summary: Get recent activity feed
+      responses:
+        "200":
+          description: Recent activity
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ActivityItem"
+
+  /dashboard/action-plans:
+    get:
+      operationId: listActionPlans
+      tags: [dashboard]
+      summary: List action plans
+      responses:
+        "200":
+          description: Action plans
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ActionPlan"
+
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+
+    Assessment:
+      type: object
+      required: [id, type, title, status, createdAt]
+      properties:
+        id:
+          type: integer
+        type:
+          type: string
+          enum: [personal, career, business]
+        title:
+          type: string
+        description:
+          type: ["string", "null"]
+        status:
+          type: string
+          enum: [not_started, in_progress, completed]
+        progress:
+          type: integer
+        completedAt:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+
+    AssessmentInput:
+      type: object
+      required: [type, title]
+      properties:
+        type:
+          type: string
+          enum: [personal, career, business]
+        title:
+          type: string
+        description:
+          type: string
+
+    AssessmentUpdate:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [not_started, in_progress, completed]
+        progress:
+          type: integer
+
+    Session:
+      type: object
+      required: [id, title, category, status, messageCount, createdAt]
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        category:
+          type: string
+          enum: [personal, career, business]
+        status:
+          type: string
+          enum: [active, completed, archived]
+        messageCount:
+          type: integer
+        lastMessage:
+          type: ["string", "null"]
+        assessmentId:
+          type: ["integer", "null"]
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+
+    SessionInput:
+      type: object
+      required: [title, category]
+      properties:
+        title:
+          type: string
+        category:
+          type: string
+          enum: [personal, career, business]
+        assessmentId:
+          type: integer
+
+    SessionWithMessages:
+      type: object
+      required: [id, title, category, status, messageCount, createdAt, updatedAt, messages]
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        category:
+          type: string
+          enum: [personal, career, business]
+        status:
+          type: string
+          enum: [active, completed, archived]
+        messageCount:
+          type: integer
+        lastMessage:
+          type: ["string", "null"]
+        assessmentId:
+          type: ["integer", "null"]
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+        messages:
+          type: array
+          items:
+            $ref: "#/components/schemas/Message"
+
+    Message:
+      type: object
+      required: [id, sessionId, role, content, createdAt]
+      properties:
+        id:
+          type: integer
+        sessionId:
+          type: integer
+        role:
+          type: string
+          enum: [user, assistant]
+        content:
+          type: string
+        createdAt:
+          type: string
+
+    MessageInput:
+      type: object
+      required: [content]
+      properties:
+        content:
+          type: string
+
+    Report:
+      type: object
+      required: [id, type, title, summary, status, createdAt]
+      properties:
+        id:
+          type: integer
+        type:
+          type: string
+          enum: [personality, leadership, business_health, customer_persona, strategic_recommendations, life_plan, career_roadmap, action_plan]
+        title:
+          type: string
+        summary:
+          type: string
+        content:
+          type: ["string", "null"]
+        keyInsights:
+          type: array
+          items:
+            type: string
+        status:
+          type: string
+          enum: [generating, ready]
+        assessmentId:
+          type: ["integer", "null"]
+        sessionId:
+          type: ["integer", "null"]
+        createdAt:
+          type: string
+
+    ReportGenerateInput:
+      type: object
+      required: [type, title]
+      properties:
+        type:
+          type: string
+          enum: [personality, leadership, business_health, customer_persona, strategic_recommendations, life_plan, career_roadmap, action_plan]
+        title:
+          type: string
+        assessmentId:
+          type: integer
+        sessionId:
+          type: integer
+
+    DashboardOverview:
+      type: object
+      required: [totalAssessments, completedAssessments, activeSessions, totalReports, currentStreak, clarityScore]
+      properties:
+        totalAssessments:
+          type: integer
+        completedAssessments:
+          type: integer
+        activeSessions:
+          type: integer
+        totalReports:
+          type: integer
+        currentStreak:
+          type: integer
+        clarityScore:
+          type: integer
+
+    ActivityItem:
+      type: object
+      required: [id, type, title, description, createdAt]
+      properties:
+        id:
+          type: integer
+        type:
+          type: string
+          enum: [assessment_completed, session_started, report_generated, milestone_reached]
+        title:
+          type: string
+        description:
+          type: string
+        createdAt:
+          type: string
+
+    ActionPlan:
+      type: object
+      required: [id, title, timeframe, tasks, completedTasks, status]
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        timeframe:
+          type: string
+          enum: [30_days, 60_days, 90_days]
+        tasks:
+          type: integer
+        completedTasks:
+          type: integer
+        status:
+          type: string
+          enum: [active, completed]
+        reportId:
+          type: ["integer", "null"]

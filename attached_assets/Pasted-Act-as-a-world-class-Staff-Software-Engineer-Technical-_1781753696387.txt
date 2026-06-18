@@ -1,0 +1,113 @@
+Act as a world-class Staff Software Engineer, Technical Architect, and open-source maintainer.
+
+Write a BAD-ASS, world-class README.md for my project.
+
+The README should not feel generic. It should feel like it was written by a founder and engineering leader who deeply cares about craftsmanship, clarity, maintainability, and long-term vision.
+
+Ten years from now, when I read this README again, I want to feel proud of what we built and why we built it.
+
+Project Context
+
+Project Name: KENKAI
+
+Mission:
+KENKAI is an AI-powered strategic thinking platform that helps people gain clarity, make better decisions, and create actionable plans for life, career, and business.
+
+Core Philosophy:
+Most people do not need more information.
+They need more clarity.
+
+KENKAI helps users:
+
+Understand themselves
+Clarify goals
+Challenge assumptions
+Build strategies
+Create execution plans
+Turn uncertainty into action
+
+Technology Stack
+
+Backend
+
+PHP
+RESTful API architecture
+
+Frontend
+
+React
+TypeScript
+
+Database
+
+MySQL
+
+Architecture Requirements
+
+API-first architecture
+Clear separation of concerns
+Scalable and maintainable codebase
+Security-conscious design
+Production-ready engineering practices
+Designed for long-term evolution
+
+README Requirements
+
+Include the following sections:
+
+Project Vision
+Explain the problem we are solving and why it matters.
+Mission Statement
+A powerful founder-style mission that inspires contributors.
+Core Principles
+Examples:
+Clarity over complexity
+Systems over shortcuts
+Action over information
+Long-term thinking
+Human-centered AI
+Technology Stack
+Present the stack professionally.
+High-Level Architecture
+Explain how frontend, backend, database, and AI services interact.
+Project Structure
+Provide a clean and scalable folder structure.
+Getting Started
+Local development setup instructions.
+Environment Configuration
+Document environment variables and configuration philosophy.
+API Design Philosophy
+Explain REST principles, versioning, consistency, error handling, and scalability considerations.
+Engineering Standards
+Cover:
+Code quality
+Testing
+Naming conventions
+Security
+Performance
+Documentation
+Future Vision
+Describe where the platform could evolve over the next decade.
+Contributing Guidelines
+How future engineers should think when contributing.
+Founder Note
+
+Write an emotional but professional message to future developers and to my future self.
+
+The message should feel like:
+
+"We may not know where this journey ends, but we chose to build something meaningful."
+
+Writing Style
+
+Exceptional technical writing
+Professional but inspiring
+Founder mentality
+Engineering excellence
+Long-term thinking
+Avoid corporate buzzwords
+Avoid generic AI-generated language
+Make it memorable
+Make it feel like the README of a company that intends to exist for the next 10 years
+
+Output only the final README.md in GitHub-flavored Markdown.
