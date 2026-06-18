@@ -1,0 +1,8 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "ehpLPM27KZVeI-T18YNRx"
+uri = "file://docs/DEPLOYMENT.md"
+type = "text"
+title = "KENKAI — Hướng Dẫn Triển Khai Nhanh (5-Minute Deployment Guide)"
