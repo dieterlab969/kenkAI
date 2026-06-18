@@ -17,6 +17,7 @@ import Sessions from "@/pages/sessions";
 import SessionDetail from "@/pages/session-detail";
 import Reports from "@/pages/reports";
 import ReportDetail from "@/pages/report-detail";
+import AiChat from "@/pages/ai-chat";
 
 const queryClient = new QueryClient();
 
@@ -48,6 +49,10 @@ function Router() {
       </Route>
       <Route path="/reports/:id">
         <AppLayout><ReportDetail /></AppLayout>
+      </Route>
+
+      <Route path="/ai">
+        <AppLayout><AiChat /></AppLayout>
       </Route>
       
       <Route>

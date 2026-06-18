@@ -18,6 +18,8 @@ tags:
     description: Report operations
   - name: dashboard
     description: Dashboard and overview operations
+  - name: gemini
+    description: Gemini AI chat operations
 paths:
   /healthz:
     get:
