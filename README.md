@@ -1,4 +1,4 @@
-# KENKAI
+# KenkAI
 
 > *Most people do not need more information. They need more clarity.*
 
